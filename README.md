@@ -9,14 +9,14 @@ The target machine had 48MB of RAM installed.  Owing to the fact that it was wri
 Audio output works by setting the interrupt frequency to a multiple of 22 KHz and banging the audio samples directly to the soundcard instead of using DMA.  This meant there was essentially no latency (notwithstanding the internal FIFO buffer in the soundcard).  It also means that there has to be enough CPU power to sustain this or it will crash hard.  I believe the target machine was some flavour of AMD K6 running at 450MHz.
 
 The TME was used to provide Mellotron samples for the following DOUG the Eagle albums:
-*Songs for the Wild-At-Heart (2006)
-*The Mythical Creatures Exhibition (2007)
-*Pancake Ferret (2008)
-*Three Little Pigs - A Tale of Vengeance (2009)
-*...And Daryil Answered (2010)
-*More Songs About Demons (2011)
-*Baklawa Doom (2012)
-*Incubi and Succubi (2013)
+* Songs for the Wild-At-Heart (2006)
+* The Mythical Creatures Exhibition (2007)
+* Pancake Ferret (2008)
+* Three Little Pigs - A Tale of Vengeance (2009)
+* ...And Daryil Answered (2010)
+* More Songs About Demons (2011)
+* Baklawa Doom (2012)
+* Incubi and Succubi (2013)
 
 ...after which it was replaced by a Manikin Memotron Rack.
 Learning that there are freely-available mellotron samples on the 'net I've decided to release the source code in the hopes that it may amuse or interest people.  If you want to actually set this thing up, have fun - but it's probably a LOT easier to just use a Raspberry Pi and fluidsynth if you need mellotron samples in a box.
