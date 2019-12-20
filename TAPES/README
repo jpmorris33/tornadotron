@@ -1,0 +1,25 @@
+This directory should contain the tape files for each instrument, e.g. 3VIOLINS
+
+You can download Mellotron samples from:
+http://www.leisureland.us/audio/MellotronSamples/MellotronSamples.htm
+
+However, they are 44KHz and will need to be resampled to 22KHz first.
+
+I used the following commands under Linux, with SOX to do the conversion.
+
+mkdir 22KHz
+for a in *.wav ; do sox $a -r 22050 22KHz/$a ; done
+
+
+e.g. when properly set up, \TAPES\3VIOLINS
+should contain the following files:
+
+A2.wav  B3.wav   Bb4.wav  C4.wav   D3.wav   D5.wav  F#3.wav  F5.wav   G3.wav
+A3.wav  B4.wav   C#3.wav  C#5.wav  D#4.wav  E3.wav  F3.wav   G#2.wav  G#4.wav
+A4.wav  Bb2.wav  C3.wav   C5.wav   D4.wav   E4.wav  F#4.wav  G2.wav   G4.wav
+B2.wav  Bb3.wav  C#4.wav  D#3.wav  D#5.wav  E5.wav  F4.wav   G#3.wav
+
+
+
+You will also need to edit TORNADO.INI to give it the location 
+of the tape files and enable each one.

@@ -2,10 +2,13 @@
 //  WSS I/O driver
 //
 
+
 #include <stdlib.h>
 #include <dos.h>
 #include "tornado.h"
 #include "wss.h"
+
+#ifdef USE_WSS
 
 typedef unsigned char UBYTE;
 int WSS_Detect(int wss_port);
@@ -239,3 +242,5 @@ if(byte & CODEC_PRDY)
 	return 1;
 return 0;
 }
+
+#endif

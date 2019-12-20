@@ -17,6 +17,8 @@
 
 static int LoadWav(TAPE *t, int note, char *filename);
 static int LoadAkai(TAPE *t, char *filename);
+static TAPEBANK *LoadPatchWav(int pat);
+static TAPEBANK *LoadPatchAkai(int pat);
 void Beep(int freq);
 
 
@@ -45,7 +47,7 @@ fseek(fp,0L,SEEK_END);
 t->length=ftell(fp);
 //fseek(fp,0L,SEEK_SET);
 fseek(fp,32L,SEEK_SET);
-printf("WAV LOADER HACK: skipped 32 bytes\n");
+//printf("WAV LOADER HACK: skipped 32 bytes\n");
 t->ptr = FRM_Alloc(t->length);
 
 ptr=t->ptr;
@@ -189,7 +191,16 @@ free(ptr);
 // Load in a patch
 //
 
-TAPEBANK *TB_LoadPatch(int pat)
+TAPEBANK *TB_LoadPatch(int pat) {
+TAPEBANK *bank;
+bank = LoadPatchAkai(pat);
+if(bank)
+	return bank;
+return LoadPatchWav(pat);
+}
+
+
+TAPEBANK *LoadPatchAkai(int pat)
 {
 struct ffblk ffblk;
 int i;
@@ -250,6 +261,65 @@ return ptr;
 }
 
 
+TAPEBANK *LoadPatchWav(int pat)
+{
+FILE *fp;
+int qty=0;
+int ctr,i;
+TAPEBANK *ptr;
+char path[256];
+// Filenames for the LeisureLand mellotron samples.  G2 = note 43
+char *name[] = {"G2","G#2","A2","BB2","B2","C3","C#3","D3","D#3","E3","F3","F#3","G3","G#3","A3","BB3","B3","C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","BB4","B4","C5","C#5","D5","D#5","E5","F5"};
+
+if(!patch[pat])
+	return NULL; // No such patch
+
+
+// First, how many files are there?
+for(ctr=0;ctr<35;ctr++) {
+	strcpy(path,patch[pat]);
+	strcat(path,name[ctr]);
+	strcat(path,".WAV");
+	fp=fopen(path,"rb");
+	if(fp) {
+		qty++;
+		fclose(fp);
+	}
+}
+
+// Now we know how many there are, create the bank
+ptr=TB_InitBank(qty);
+if(!ptr)
+	{
+	printf("Out of memory allocating bank\n");
+	return NULL;
+	}
+
+Beep(1000);
+
+// Now populate the bank
+qty=0;
+for(ctr=0;ctr<35;ctr++) {
+	strcpy(path,patch[pat]);
+	strcat(path,name[ctr]);
+	strcat(path,".WAV");
+	fp=fopen(path,"rb");
+	if(fp) {
+		fclose(fp);
+		printf("Load tape %s : ",path);
+		i=LoadWav(&ptr->tape[qty++],ctr+43,path);
+	if(i)
+		printf("OK\n");
+	else
+		printf("Failed\n");
+	}
+}
+Beep(500);
+
+return ptr;
+}
+
+
 //
 // Initialise a patch by checking the given directory
 //
@@ -264,8 +334,14 @@ strcpy(path,dir);
 strcat(path,"*.a1s");
 
 i=findfirst(path,&ffblk,0);
-if(i<0)
-	return 0;
+if(i<0) {
+	strcpy(path,dir);
+	strcat(path,"*.wav");
+	i=findfirst(path,&ffblk,0);
+	if(i<0) {
+		return 0;
+	}
+}
 
 patch[pat] = (char *)calloc(1,strlen(dir)+1);
 if(!patch[pat])

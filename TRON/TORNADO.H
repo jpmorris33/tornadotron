@@ -1,5 +1,5 @@
 //
-//  Tornado playback engine V1.10
+//  Tornado playback engine V1.20
 //
 //  (C) 2006 IT-HE Software
 //
@@ -7,9 +7,12 @@
 #ifndef _TORNADO_H_
 #define _TORNADO_H_
 
+//#define USE_WSS
+#define USE_COVOX
+
 #include <stdio.h>
 
-#define TORNADO_VERSION "V1.10"
+#define TORNADO_VERSION "V1.20"
 
 #define CHANNELS 8
 #define MAXPATCHES 16

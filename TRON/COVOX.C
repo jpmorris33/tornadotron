@@ -2,10 +2,12 @@
 //  LPT DAC I/O driver
 //
 
+
 #include <stdlib.h>
 #include <dos.h>
 #include "tornado.h"
 
+#ifdef USE_COVOX
 
 extern int OverRun;
 static volatile unsigned char byte=0;
@@ -53,3 +55,5 @@ if(!(byte & 0x80))
 */
 return 1;
 }
+
+#endif

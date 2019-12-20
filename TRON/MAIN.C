@@ -34,6 +34,8 @@ int patches=0;
 int ReadConfig(char *filename);
 void Stop();
 void Reset();
+void StartNote(int key);
+
 
 extern int Detect_Bus();
 extern int Init_Bus(long freq, long *multiplier);
@@ -143,6 +145,8 @@ do
 			k=getch();
 			if(k == ' ')
 				Reset();
+			if(k == '1')
+				StartNote(44);
 			}
 		ret=0;
 		}
