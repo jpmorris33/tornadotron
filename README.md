@@ -26,8 +26,9 @@ Learning that there are freely-available mellotron samples on the 'net I've deci
 NOTES:
 
 In this dev branch I've added support for loading WAV tape sets as well as AKAI.
-I've also made it so that you can switch between WSS (CS4231) and LPT DAC by editing TORNADO.H and recompiling.
 
+I've also made it so that you can switch between WSS (CS4231) and LPT DAC by editing TORNADO.H and recompiling.
 The included binary does this by default, which will allow you to run it under DOSBOX if the "D*sney Sound Source" is enabled.  I gave it 200000 cycles and it ran happily.
+
 Where things get messy is that DOSBOX doesn't support MIDI input, so you can't actually sent it MIDI commands!  For testing, I've made the '1' key play MIDI note 44.
 
