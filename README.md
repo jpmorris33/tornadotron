@@ -2,7 +2,9 @@
 
 This is a sample playback engine I wrote in 2006.  It was designed to run directly on top of OpenDOS, accepting MIDI via port 0x330 in the usual manner for DOS, and outputting 16-bit audio via a Crystal CS4236 CODEC on port 0x530.  There was also a COVOX driver for 8-bit parallel port output, but it sounded a lot worse.  The output driver can't be selected at runtime, it had to be compiled in.
 
-The software was build to load in a number of mellotron samples in AKAI format, converted from the Mike Pinder sample library.  I have modified the code slightly to fall back onto WAV format.  It is expected that they be in 22KHz 16-bit mono format, and it may not handle it terribly well if they aren't.
+TornadoTron was written in C and 386 assembler and built using Borland C++ 2.0 in TINY mode - this meant the entire softsynth was a single 28KB .COM file.  Though obviously this did not include the .INI file or the 'tapes'.
+
+The software was built to load in a number of mellotron samples in AKAI format, converted from the Mike Pinder sample library.  I have modified the code slightly to fall back onto WAV format.  It is expected that they be in 22KHz 16-bit mono format, and it may not handle it terribly well if they aren't.
 
 The target machine had 48MB of RAM installed.  Owing to the fact that it was written for my own personal use it did various uncouth things like simply _stealing_ the upper memory instead of asking for it via HIMEM.SYS.  It may crash horribly if HIMEM.SYS is running, and will not run at all under EMM386 since it switches into 32-protected mode to enable Flat-Realmode.  This had an unexpected advantage in that it was possible to debug the software using Borland C++ 2.0 which ran in real mode.
 
